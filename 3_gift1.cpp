@@ -38,7 +38,7 @@ int main() {
         string giftGiver;
         getline (inputFile, giftGiver);
 
-        cout << giftGiver;
+        cout << giftGiver << endl;
 
         // get line of nums and process it into variables
         string lineUnprocesssed;
@@ -62,10 +62,15 @@ int main() {
         int BACK = amount % numOfRecievers;
 
         // grab gift recievers
+        while (i < numOfRecievers) {
+            string person;
+            getline (inputFile, person);
+            // cout << person << endl;
+            peopleDict[ person ] = APP;
+            i++;
+        }
 
-        
-
-        cout << amount << giftGiver << recievers << endl << APP << endl;
+        // cout << amount << giftGiver << recievers << endl << APP << endl;
     // }
 
     for (auto itr = peopleDict.begin(); itr != peopleDict.end(); ++itr) {
