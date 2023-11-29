@@ -21,7 +21,7 @@ int main() {
 
     int numPeople = stoi(stringPeople);
 
-    cout << numPeople << endl;
+    // cout << numPeople << endl;
     int i = 0;
     string people[numPeople];
 
@@ -33,12 +33,14 @@ int main() {
         i++;
     }
 
-    // while (true) {
+    int indexer = 0;
+
+    while (indexer < numPeople) {
         // get gift giver
         string giftGiver;
         getline (inputFile, giftGiver);
 
-        cout << giftGiver << endl;
+        // cout << giftGiver << endl;
 
         // get line of nums and process it into variables
         string lineUnprocesssed;
@@ -59,19 +61,32 @@ int main() {
 
         // transform variables into needed ones
         int APP = ceil(amount / numOfRecievers);
-        int BACK = amount % numOfRecievers;
+        if (numOfRecievers == 0) {
+            return int BACK = 0
+        } else {
+            return int BACK = amount % numOfRecievers;
+        }
+        
+        peopleDict[ giftGiver ] += BACK;
+
+        // cout << APP;
+
+        i = 0;
 
         // grab gift recievers
         while (i < numOfRecievers) {
             string person;
             getline (inputFile, person);
             // cout << person << endl;
-            peopleDict[ person ] = APP;
+            // cout << person;
+            peopleDict[ person ] += APP;
             i++;
         }
 
+        indexer++;
+
         // cout << amount << giftGiver << recievers << endl << APP << endl;
-    // }
+    }
 
     for (auto itr = peopleDict.begin(); itr != peopleDict.end(); ++itr) {
       cout << itr->first << " " << itr->second << endl;
