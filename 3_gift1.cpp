@@ -9,7 +9,6 @@ using namespace std;
 int main() {
     string line;
     vector<string> array;
-    vector<string> people;
 
     ifstream inputFile("./gift1.in");
 
@@ -18,11 +17,14 @@ int main() {
 
     int numPeople = stoi(stringPeople);
 
-    cout << numPeople;
+    cout << numPeople << endl;
+    int i = 0;
+    string people[numPeople];
 
     while (i < numPeople) {
-        string person = inputFile[i];
-        cout << person;
+        string person;
+        getline (inputFile, person);
+        cout << person << endl;
         i++;
     }
 
