@@ -34,11 +34,13 @@ int main() {
     }
 
     // while (true) {
+        // get gift giver
         string giftGiver;
         getline (inputFile, giftGiver);
 
         cout << giftGiver;
 
+        // get line of nums and process it into variables
         string lineUnprocesssed;
         getline (inputFile, lineUnprocesssed);
 
@@ -53,9 +55,15 @@ int main() {
         }
         
         int amount = stoi(num[0]);
-        int recievers = stoi(num[1]);
+        int numOfRecievers = stoi(num[1]);
 
-        int APP = ceil(amount / recievers);
+        // transform variables into needed ones
+        int APP = ceil(amount / numOfRecievers);
+        int BACK = amount % numOfRecievers;
+
+        // grab gift recievers
+
+        
 
         cout << amount << giftGiver << recievers << endl << APP << endl;
     // }
