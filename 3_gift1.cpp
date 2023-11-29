@@ -1,3 +1,9 @@
+/*
+ID: 27ckuzm1
+TASK: gift1
+LANG: C++                 
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -13,8 +19,9 @@ int main() {
     string line;
     vector<string> array;
     map<string, int> peopleDict;
+    vector<string> insertOrder;
 
-    ifstream inputFile("./gift1.in");
+    ifstream inputFile("gift1.in");
 
     string stringPeople;
     getline (inputFile, stringPeople);
@@ -30,6 +37,7 @@ int main() {
         getline (inputFile, person);
         // cout << person << endl;
         peopleDict.insert({person, 0});
+        insertOrder.push_back(person);
         i++;
     }
 
@@ -60,13 +68,18 @@ int main() {
         int numOfRecievers = stoi(num[1]);
 
         // transform variables into needed ones
-        int APP = ceil(amount / numOfRecievers);
+        int BACK;
+        int APP;
+
         if (numOfRecievers == 0) {
-            return int BACK = 0
+            BACK = 0;
+            APP = 0;
         } else {
-            return int BACK = amount % numOfRecievers;
+            BACK = amount % numOfRecievers;
+            APP = ceil(amount / numOfRecievers);
         }
         
+        peopleDict[ giftGiver ] -= amount;
         peopleDict[ giftGiver ] += BACK;
 
         // cout << APP;
@@ -88,15 +101,24 @@ int main() {
         // cout << amount << giftGiver << recievers << endl << APP << endl;
     }
 
-    for (auto itr = peopleDict.begin(); itr != peopleDict.end(); ++itr) {
-      cout << itr->first << " " << itr->second << endl;
+    ofstream outputFile;
+    outputFile.open("gift1.out");
+
+    for (int i = 0; i < insertOrder.size(); ++i) {
+        const string &s = insertOrder[i];
+        outputFile << s << ' ' << peopleDict[s] << '\n';
     }
+
+    // for (auto itr = peopleDict.begin(); itr != peopleDict.end(); ++itr) {
+    //   outputFile << itr->first << " " << itr->second << endl;
+    // }
 
     while (getline (inputFile, line)) {
         array.push_back(line);
     }
 
     inputFile.close();
+    outputFile.close();
 
     return 0;
 }
