@@ -17,7 +17,7 @@ int main() {
     inputFile.open ("beads.int");
     string strBeads;
     getline (inputFile, strBeads);
-    int numBeads = stoi(strBeads);
+    int numBeads = stoi ("29");
     string allBeads;
     getline (inputFile, allBeads);
     inputFile.close();
@@ -29,12 +29,13 @@ int main() {
 
     vector<string> beadpairs;
 
-    while (i < numBeads;) {
-        if (numBeads[i-1] != numBeads[i]) {
+    while (i < numBeads) {
+        if (allBeads[i-1] != allBeads[i]) {
             ++workingItem;
+            beadpairs.push_back("");
         }
 
-        beadpairs[workingItem] += numBeads[i];
+        beadpairs[workingItem] += allBeads[i];
 
         ++i;
     }
