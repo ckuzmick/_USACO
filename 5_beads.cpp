@@ -6,6 +6,7 @@ LANG: C++
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -22,14 +23,24 @@ int main() {
     inputFile.close();
 
     // Get beads into array objects of strings of certain colors
+    
+    int i = 0;
+    int workingItem = 0;
 
-    while (i = 0; i < numBeads;) {
-        string beadpairs[numBeads];
+    vector<string> beadpairs;
 
-        if (allBeads[i] == allBeads[i+1] || allBeads[i+1] == 0) {
-            beadpairs[] += allBeads[i]
+    while (i < numBeads;) {
+        if (numBeads[i-1] != numBeads[i]) {
+            ++workingItem;
         }
+
+        beadpairs[workingItem] += numBeads[i];
+
+        ++i;
     }
 
+    for(string i : beadpairs) {
+        cout << "i = " << i << endl;
+    }
     // Loop through and find the largest one
 }
