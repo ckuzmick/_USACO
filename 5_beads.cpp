@@ -123,10 +123,10 @@ int main() {
             bool obj2going = true;
             
             while (obj2going) {
-                if (pairsBeads[obj2 + 1][0] == 'w' || pairsBeads[obj1].find(pairsBeads[obj1 + 1][0]) != string::npos) {
-                    char x = pairsBeads[obj2 + 1][0];
+                if (pairsBeads[0][0] == 'w' || pairsBeads[obj2].find(pairsBeads[0][0]) != string::npos) {
+                    char x = pairsBeads[0][0];
                     pairsBeads[obj2].push_back(x);
-                    pairsBeads[obj2 + 1].erase(0,1);
+                    pairsBeads[0].erase(0,1);
                     ++maxBeads;
                 } else {
                     obj2going = false;
