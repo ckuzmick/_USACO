@@ -64,61 +64,66 @@ int main() {
         pairsBeads.pop_back();
     }
 
-    // Loop through and find the largest one
+    if (pairsBeads.size() > 3) {
+        int objectsIndexer = 1;
+        int maxBeads = pairsBeads.back().size() + pairsBeads[0].size();
+        int obj1 = pairsBeads.size() - 1;
+        int obj2 = 0;
 
-    int objectsIndexer = 1;
-    int maxBeads = pairsBeads.back().size() + pairsBeads[0].size();
-    int obj1 = pairsBeads.size() - 1;
-    int obj2 = 0;
+        while (objectsIndexer < pairsBeads.size()) {
+            if (maxBeads < (pairsBeads[objectsIndexer].size() + pairsBeads[objectsIndexer - 1].size())) {
+                maxBeads = pairsBeads[objectsIndexer].size() + pairsBeads[objectsIndexer - 1].size();
 
-    while (objectsIndexer < pairsBeads.size()) {
-        if (maxBeads < (pairsBeads[objectsIndexer].size() + pairsBeads[objectsIndexer - 1].size())) {
-            maxBeads = pairsBeads[objectsIndexer].size() + pairsBeads[objectsIndexer - 1].size();
-
-            obj1 = objectsIndexer - 1;
-            obj2 = objectsIndexer;
+                obj1 = objectsIndexer - 1;
+                obj2 = objectsIndexer;
+            }
+            ++objectsIndexer;
         }
-        ++objectsIndexer;
-    }
 
-    if (obj1 == 0) {
+        if (obj1 == 0) {
+            bool obj2going = true;
+
+            while (obj2going) {
+                if (pairsBeads.back()[pairsBeads.back().length() - 1] == 'w') {
+                    ++maxBeads;
+                } else {
+                    obj2going = false;
+                }
+            }
+        }
+
+        bool obj1going = true;
+        
+        while (obj1going) {
+            if (pairsBeads[obj1 - 1][pairsBeads[obj1 - 1].length() - 1] == 'w') {
+                pairsBeads[obj1 - 1].pop_back();
+                ++maxBeads;
+            } else {
+                obj1going = false;
+            }
+        }
+
         bool obj2going = true;
-
+        
         while (obj2going) {
-            if (pairsBeads.back()[pairsBeads.back().length() - 1] == 'w') {
+            if (pairsBeads[obj2 + 1][pairsBeads[obj2 + 1].length() + 1] == 'w') {
+                pairsBeads[obj2 + 1].pop_back();
                 ++maxBeads;
             } else {
                 obj2going = false;
             }
         }
-    }
 
-    bool obj1going = true;
-    
-    while (obj1going) {
-        if (pairsBeads[obj1 - 1][pairsBeads[obj1 - 1].length() - 1] == 'w') {
-            pairsBeads[obj1 - 1].pop_back();
-            ++maxBeads;
-        } else {
-            obj1going = false;
-        }
+        ofstream outputFile;
+        outputFile.open("beads.out");
+        outputFile << maxBeads + 1 << "\n";
+        outputFile.close();
+    } else {
+        ofstream outputFile;
+        outputFile.open("beads.out");
+        outputFile << numBeads << "\n";
+        outputFile.close();
     }
-
-    bool obj2going = true;
-    
-    while (obj2going) {
-        if (pairsBeads[obj2 + 1][pairsBeads[obj2 + 1].length() + 1] == 'w') {
-            pairsBeads[obj2 + 1].pop_back();
-            ++maxBeads;
-        } else {
-            obj2going = false;
-        }
-    }
-
-    ofstream outputFile;
-    outputFile.open("beads.out");
-    outputFile << maxBeads + 1 << "\n";
-    outputFile.close();
 
     return 0;
 }
