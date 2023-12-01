@@ -49,7 +49,7 @@ int main() {
     }
 
     while (i < numBeads) {
-        if (allBeads[i] == 'w' || pairsBeads[workingItem][0] == allBeads[i]) {
+        if (allBeads[i] == 'w' || pairsBeads[workingItem].find(allBeads[i]) != string::npos) {
             pairsBeads[workingItem] += allBeads[i];
         } else {
             pairsBeads.push_back(getString(allBeads[i]));
@@ -95,7 +95,9 @@ int main() {
         bool obj1going = true;
         
         while (obj1going) {
-            if (pairsBeads[obj1 - 1][pairsBeads[obj1 - 1].length() - 1] == 'w') {
+            if (pairsBeads[obj1 - 1].back() == 'w' || pairsBeads[obj1].find(pairsBeads[obj1 - 1].back()) != string::npos) {
+                char x = pairsBeads[obj1 - 1].back();
+                pairsBeads[obj1].push_back(x);
                 pairsBeads[obj1 - 1].pop_back();
                 ++maxBeads;
             } else {
@@ -106,8 +108,10 @@ int main() {
         bool obj2going = true;
         
         while (obj2going) {
-            if (pairsBeads[obj2 + 1][pairsBeads[obj2 + 1].length() + 1] == 'w') {
-                pairsBeads[obj2 + 1].pop_back();
+            if (pairsBeads[obj2 + 1][0] == 'w' || pairsBeads[obj1].find(pairsBeads[obj1 + 1][0]) != string::npos) {
+                char x = pairsBeads[obj2 + 1][0];
+                pairsBeads[obj2].push_back(x);
+                pairsBeads[obj2 + 1].erase(0,1);
                 ++maxBeads;
             } else {
                 obj2going = false;
@@ -116,12 +120,16 @@ int main() {
 
         ofstream outputFile;
         outputFile.open("beads.out");
-        outputFile << maxBeads << "\n";
+        cout << maxBeads << "\n";
         outputFile.close();
+
+        for (string item : pairsBeads) {
+            cout << item << endl;
+        }
     } else {
         ofstream outputFile;
         outputFile.open("beads.out");
-        outputFile << numBeads << "\n";
+        cout << numBeads << "\n";
         outputFile.close();
     }
 
