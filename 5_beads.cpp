@@ -84,7 +84,7 @@ int main() {
             bool obj2going = true;
 
             while (obj2going) {
-                if (pairsBeads.back()[pairsBeads.back().length() - 1] == 'w') {
+                if (pairsBeads.back().back() == 'w') {
                     ++maxBeads;
                 } else {
                     obj2going = false;
@@ -96,7 +96,7 @@ int main() {
             bool obj2going = true;
 
             while (obj2going) {
-                if (pairsBeads.back()[pairsBeads.back().length() - 1] == 'w') {
+                if (pairsBeads[0][0] == 'w') {
                     ++maxBeads;
                 } else {
                     obj2going = false;
@@ -123,10 +123,10 @@ int main() {
             bool obj2going = true;
             
             while (obj2going) {
-                if (pairsBeads[0][0] == 'w' || pairsBeads[obj2].find(pairsBeads[0][0]) != string::npos) {
-                    char x = pairsBeads[0][0];
+                if (pairsBeads[obj2 + 1][0] == 'w' || pairsBeads[obj2].find(pairsBeads[obj2 + 1][0]) != string::npos) {
+                    char x = pairsBeads[obj2 + 1][0];
                     pairsBeads[obj2].push_back(x);
-                    pairsBeads[0].erase(0,1);
+                    pairsBeads[obj2 + 1].erase(0,1);
                     ++maxBeads;
                 } else {
                     obj2going = false;
