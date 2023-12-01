@@ -116,7 +116,7 @@ int main() {
 
         ofstream outputFile;
         outputFile.open("beads.out");
-        outputFile << maxBeads + 1 << "\n";
+        outputFile << maxBeads << "\n";
         outputFile.close();
     } else {
         ofstream outputFile;
