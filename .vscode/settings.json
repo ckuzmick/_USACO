@@ -5,6 +5,7 @@
         "istream": "cpp",
         "vector": "cpp",
         "string": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "fstream": "cpp"
     }
 }
