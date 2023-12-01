@@ -92,44 +92,56 @@ int main() {
             }
         }
 
-        bool obj1going = true;
-        
-        while (obj1going) {
-            if (pairsBeads[obj1 - 1].back() == 'w' || pairsBeads[obj1].find(pairsBeads[obj1 - 1].back()) != string::npos) {
-                char x = pairsBeads[obj1 - 1].back();
-                pairsBeads[obj1].push_back(x);
-                pairsBeads[obj1 - 1].pop_back();
-                ++maxBeads;
-            } else {
-                obj1going = false;
+        if (obj2 == 12) {
+            bool obj2going = true;
+
+            while (obj2going) {
+                if (pairsBeads.back()[pairsBeads.back().length() - 1] == 'w') {
+                    ++maxBeads;
+                } else {
+                    obj2going = false;
+                }
             }
         }
 
-        bool obj2going = true;
-        
-        while (obj2going) {
-            if (pairsBeads[obj2 + 1][0] == 'w' || pairsBeads[obj1].find(pairsBeads[obj1 + 1][0]) != string::npos) {
-                char x = pairsBeads[obj2 + 1][0];
-                pairsBeads[obj2].push_back(x);
-                pairsBeads[obj2 + 1].erase(0,1);
-                ++maxBeads;
-            } else {
-                obj2going = false;
+        if (obj1 != 0) {
+            bool obj1going = true;
+            
+            while (obj1going) {
+                if (pairsBeads[obj1 - 1].back() == 'w' || pairsBeads[obj1].find(pairsBeads[obj1 - 1].back()) != string::npos) {
+                    char x = pairsBeads[obj1 - 1].back();
+                    pairsBeads[obj1].push_back(x);
+                    pairsBeads[obj1 - 1].pop_back();
+                    ++maxBeads;
+                } else {
+                    obj1going = false;
+                }
+            }
+        }
+
+        if (obj2 != 12) {
+            bool obj2going = true;
+            
+            while (obj2going) {
+                if (pairsBeads[obj2 + 1][0] == 'w' || pairsBeads[obj1].find(pairsBeads[obj1 + 1][0]) != string::npos) {
+                    char x = pairsBeads[obj2 + 1][0];
+                    pairsBeads[obj2].push_back(x);
+                    pairsBeads[obj2 + 1].erase(0,1);
+                    ++maxBeads;
+                } else {
+                    obj2going = false;
+                }
             }
         }
 
         ofstream outputFile;
         outputFile.open("beads.out");
-        cout << maxBeads << "\n";
+        outputFile << maxBeads << "\n";
         outputFile.close();
-
-        for (string item : pairsBeads) {
-            cout << item << endl;
-        }
     } else {
         ofstream outputFile;
         outputFile.open("beads.out");
-        cout << numBeads << "\n";
+        outputFile << numBeads << "\n";
         outputFile.close();
     }
 
