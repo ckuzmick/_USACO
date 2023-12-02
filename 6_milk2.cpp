@@ -57,14 +57,27 @@ int main() {
     
     // find longest times
 
-    int withoutMilking;
-    int withMilking;
+    int withoutMilking = 0;
+    int withMilking = 0;
+    int streak = 0;
 
     i = 0;
 
     while (i < num) {
         int start = farmerTimes[i].timeIn;
         int end = farmerTimes[i].timeOut;
+        int lastEnd = farmerTimes[i-1].timeOut;
+        int length = end - start;
+
+        if (start < lastEnd) {
+            withMilking += length;
+            streak += length; 
+        } if (lastEnd <= start) {
+            streak = lastEnd - start;
+            if (abs(streak) > withoutMilking) {
+                withoutMilking = streak;
+            }
+        }
     }
 
     return 0;
