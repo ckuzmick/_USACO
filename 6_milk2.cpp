@@ -9,10 +9,12 @@ LANG: C++
 #include <string>
 #include <map>
 #include <sstream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-class farmer {
+struct farmer {
     public:
         int timeIn;
         int timeOut;
@@ -25,10 +27,43 @@ farmer splitTimes(string data) {
 
     iss >> newFarmer.timeIn >> newFarmer.timeOut;
 
-    cout << newFarmer.timeIn << endl << newFarmer.timeOut << endl;
+    // cout << newFarmer.timeIn << endl << newFarmer.timeOut << endl;
 
     return newFarmer;
 }
+
+bool covered(double time, const vector<farmer>& array) {
+    time += .5;
+
+    for (const farmer& i : array) {
+        if (time > i.timeIn && time < i.timeOut) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int findLongest(const string& str, char target) {
+    int maxLength = 0;
+    int currentLength = 0;
+
+    for (char currentChar : str) {
+        if (currentChar == target) {
+            // Increment the current streak
+            ++currentLength;
+        } else {
+            // Reset the current streak if the character changes
+            currentLength = 0;
+        }
+
+        // Update the maximum length if needed
+        maxLength = std::max(maxLength, currentLength);
+    }
+
+    return maxLength;
+}
+
 
 int main() {
     // get data from input
@@ -41,6 +76,9 @@ int main() {
 
     int i = 0;
 
+    int largest = 0;
+    int smallest = 100000;
+
     vector<farmer> farmerTimes;
 
     while (i < num) {
@@ -50,35 +88,50 @@ int main() {
 
         farmerTimes.push_back(splitTimes(rawString)); // add new object to vector
 
+        if (farmerTimes.back().timeIn < smallest) {
+            smallest = farmerTimes.back().timeIn;
+        }
+
+        if (farmerTimes.back().timeOut > largest) {
+            largest = farmerTimes.back().timeOut;
+        }
+
         ++i;
     }
 
     inputFile.close ();
-    
-    // find longest times
 
-    int withoutMilking = 0;
-    int withMilking = 0;
-    int streak = 0;
+    // get into string
 
-    i = 0;
+    i = smallest;
 
-    while (i < num) {
-        int start = farmerTimes[i].timeIn;
-        int end = farmerTimes[i].timeOut;
-        int lastEnd = farmerTimes[i-1].timeOut;
-        int length = end - start;
+    string all;
 
-        if (start < lastEnd) {
-            withMilking += length;
-            streak += length; 
-        } if (lastEnd <= start) {
-            streak = lastEnd - start;
-            if (abs(streak) > withoutMilking) {
-                withoutMilking = streak;
-            }
+    while (i >= smallest && i <= largest) {
+        if (!covered(i, farmerTimes)) {
+            all += '0';
+        } else {
+            all += '1';
         }
+
+        ++i;
     }
+
+    all.pop_back();
+
+    cout << largest << ' ' << smallest << endl << all << endl;
+
+    // count out
+
+    int withMilking = findLongest(all, '1');    
+    int withoutMilking = findLongest(all, '0');
+
+    // cout << withMilking << ' ' << withoutMilking << endl;
+
+    ofstream outputFile;
+    outputFile.open("milk2.out");
+    outputFile << withMilking << ' ' << withoutMilking << "\n";
+    outputFile.close();
 
     return 0;
 }
