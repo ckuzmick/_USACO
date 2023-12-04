@@ -30,8 +30,21 @@ int main() {
         numbers[8] = {'T', 'U', 'V'};
         numbers[9] = {'W', 'X', 'Y'};
     int digits = stringNum.length();
+    int totalIterations = pow(3, num);
 
     // fill vector will all possible names;
+
+    while (i < totalIterations) {
+        names.push_back('');
+
+        for (itwo = digits-1; itwo > -1; --itwo;) {
+            if (i % array[itwo] == 0) {
+                names.back() += array[itwo];
+            }
+        }
+
+        ++i;
+    }
 
     // check each name with file;
 
