@@ -30,21 +30,33 @@ int main() {
         numbers[8] = {'T', 'U', 'V'};
         numbers[9] = {'W', 'X', 'Y'};
     int digits = stringNum.length();
-    int totalIterations = pow(3, num);
+    int totalIterations = pow(3, digits);
 
     // fill vector will all possible names;
 
-    while (i < totalIterations) {
-        names.push_back('');
+    int i = 0;
 
-        for (itwo = digits-1; itwo > -1; --itwo;) {
-            if (i % array[itwo] == 0) {
-                names.back() += array[itwo];
-            }
+    cout << totalIterations;
+
+    while (i < totalIterations) {
+        names.push_back("");
+
+        int itwo = digits - 1;
+
+        while (itwo >= 0) {
+            // if (i % numbers[itwo][0] == 0) {
+            //     // names.back() += numbers[itwo][0];
+            // }
+
+            cout << itwo << ' ';
+
+            --itwo;
         }
 
         ++i;
     }
+
+    cout << names[0] << endl;
 
     // check each name with file;
 
