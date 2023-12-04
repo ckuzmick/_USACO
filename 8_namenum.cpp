@@ -5,6 +5,8 @@
 #include <cmath>
 #include <map>
 
+#define MAXNUMS 12;
+
 using namespace std;
 
 int main() {
@@ -18,7 +20,7 @@ int main() {
 
     // define variables;
     vector<string> names;
-    map<int, char[3]> numbers;
+    map<int, vector<char> > numbers;
         numbers[2] = {'A', 'B', 'C'};
         numbers[3] = {'D', 'E', 'F'};
         numbers[4] = {'G', 'H', 'I'};
@@ -27,6 +29,7 @@ int main() {
         numbers[7] = {'P', 'R', 'S'};
         numbers[8] = {'T', 'U', 'V'};
         numbers[9] = {'W', 'X', 'Y'};
+    int digits = stringNum.length();
 
     // fill vector will all possible names;
 
