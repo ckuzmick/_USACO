@@ -5,7 +5,7 @@
 #include <cmath>
 #include <map>
 
-#define MAXNUMS 12;
+#define MAXNUMS 12
 
 using namespace std;
 
@@ -20,15 +20,16 @@ int main() {
 
     // define variables;
     vector<string> names;
-    map<int, vector<char> > numbers;
-        numbers[2] = {'A', 'B', 'C'};
-        numbers[3] = {'D', 'E', 'F'};
-        numbers[4] = {'G', 'H', 'I'};
-        numbers[5] = {'J', 'K', 'L'};
-        numbers[6] = {'M', 'N', 'O'};
-        numbers[7] = {'P', 'R', 'S'};
-        numbers[8] = {'T', 'U', 'V'};
-        numbers[9] = {'W', 'X', 'Y'};
+    vector< vector<char> > numbers{ 
+            {'A', 'B', 'C'},
+            {'D', 'E', 'F'},
+            {'G', 'H', 'I'},
+            {'J', 'K', 'L'},
+            {'M', 'N', 'O'},
+            {'P', 'R', 'S'},
+            {'T', 'U', 'V'},
+            {'W', 'X', 'Y'}
+        };
     int digits = stringNum.length();
     int totalIterations = pow(3, digits);
 
@@ -43,12 +44,12 @@ int main() {
 
         int itwo = digits - 1;
 
-        while (itwo >= 0) {
-            // if (i % numbers[itwo][0] == 0) {
-            //     // names.back() += numbers[itwo][0];
-            // }
+        cout << ' ';
 
-            cout << itwo << ' ';
+        while (itwo >= 0) {
+            int n = i % numbers[(stringNum[itwo] - '0') - 2].size();
+            
+            cout << numbers[(stringNum[itwo] - '0') - 2][n];
 
             --itwo;
         }
@@ -56,7 +57,7 @@ int main() {
         ++i;
     }
 
-    cout << names[0] << endl;
+    // cout << names[0] << endl;
 
     // check each name with file;
 
