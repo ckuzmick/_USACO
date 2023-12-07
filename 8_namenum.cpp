@@ -35,26 +35,25 @@ int main() {
 
     // fill vector will all possible names;
 
-    int i = 0;
+    int[digits] iterators = {0, 0, 0, 0}
 
-    cout << totalIterations;
+    while (iterators[0] < 3) {
+        while (iterators[1] < 3) {
+            while (iterators[2] < 3) {
+                while (iterators[3] < 3) {
 
-    while (i < totalIterations) {
-        names.push_back("");
+                    names.push_back(numbers[])
 
-        int itwo = digits - 1;
+                    ++iterators[3];
+                }   
 
-        cout << ' ';
+                ++iterators[2];
+            }
 
-        while (itwo >= 0) {
-            int n = i % numbers[(stringNum[itwo] - '0') - 2].size();
-            
-            cout << numbers[(stringNum[itwo] - '0') - 2][n];
-
-            --itwo;
+            ++iterators[1];
         }
-
-        ++i;
+        
+        ++iterators[0];
     }
 
     // cout << names[0] << endl;
