@@ -9,6 +9,38 @@
 
 using namespace std;
 
+int getDigit(string n, int digit) {
+    int result = n[digit] - '0';
+
+    return result - 2;
+}
+
+string makeString(vector< vector<char> > reference, int length, string number, vector<int> iterationsArray) {
+    string word;
+    int iterate = 0;
+
+    while (iterate < length) {
+        word.push_back( reference[getDigit(number, iterate)][iterationsArray[iterate]] );
+
+        ++iterate;
+    }
+
+    return word;
+}
+
+vector<string> getNames() {
+    vector<string> names;
+
+    if (level == 1) {
+        // make string
+    }
+    else {
+        // getNames(level-1)
+    }
+
+    return names;
+}
+
 int main() {
     // get input from file;
     ifstream inputFile;
@@ -32,28 +64,32 @@ int main() {
         };
     int digits = stringNum.length();
     int totalIterations = pow(3, digits);
+    vector<int> i{0, 0, 0, 0};
 
     // fill vector will all possible names;
 
-    int[digits] iterators = {0, 0, 0, 0}
+    while (i[0] < 3) {
+        i[1] = 0;
+        
+        while (i[1] < 3) {
+            i[2] = 0;
 
-    while (iterators[0] < 3) {
-        while (iterators[1] < 3) {
-            while (iterators[2] < 3) {
-                while (iterators[3] < 3) {
+            while (i[2] < 3) {
+                i[3] = 0;
 
-                    names.push_back(numbers[])
+                while (i[3] < 3) {
+                    cout << makeString(numbers, digits, stringNum, i) << ' ';
 
-                    ++iterators[3];
+                    ++i[3];
                 }   
 
-                ++iterators[2];
+                ++i[2];
             }
 
-            ++iterators[1];
+            ++i[1];
         }
         
-        ++iterators[0];
+        ++i[0];
     }
 
     // cout << names[0] << endl;
