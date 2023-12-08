@@ -28,14 +28,21 @@ string makeString(vector< vector<char> > reference, int length, string number, v
     return word;
 }
 
-vector<string> getNames() {
+vector<string> getNames(vector<int> i, int digits, vector< vector<char> > reference) {
     vector<string> names;
+    int level = digits-1;
 
-    if (level == 1) {
-        // make string
+    if (level == 0) {
+        makeString()
     }
     else {
-        // getNames(level-1)
+        while (i[level] < 3) {
+            i[level-1] = 0;
+
+            getNames(i, level);
+
+            ++i[level];
+        }
     }
 
     return names;
