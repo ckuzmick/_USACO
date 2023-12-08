@@ -5,8 +5,6 @@
 #include <cmath>
 #include <map>
 
-#define MAXNUMS 12
-
 using namespace std;
 
 int getDigit(string n, int digit) {
@@ -38,6 +36,18 @@ void printAllNames(vector<int>& i, int level, vector< vector<char> >& reference,
         i[level] = j;
         printAllNames(i, level + 1, reference, digits, number, output);
     }
+}
+
+bool findName(string name, ifstream file) {
+    string line;
+
+    while ( getline(file, line) ) {
+        size_t pos = line.find(name);
+        if ( pos != string::npos)
+            return true
+    }
+
+    return false;
 }
 
 int main() {
