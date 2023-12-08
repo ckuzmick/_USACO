@@ -33,13 +33,13 @@ vector<string> getNames(vector<int> i, int digits, vector< vector<char> > refere
     int level = digits-1;
 
     if (level == 0) {
-        makeString()
+        makeString(i, 0, reference)
     }
     else {
         while (i[level] < 3) {
             i[level-1] = 0;
 
-            getNames(i, level);
+            getNames(i, level, reference);
 
             ++i[level];
         }
