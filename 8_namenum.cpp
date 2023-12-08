@@ -28,24 +28,16 @@ string makeString(vector< vector<char> > reference, int length, string number, v
     return word;
 }
 
-vector<string> getNames(vector<int> i, int digits, vector< vector<char> > reference) {
-    vector<string> names;
-    int level = digits-1;
-
-    if (level == 0) {
-        makeString(i, 0, reference)
-    }
-    else {
-        while (i[level] < 3) {
-            i[level-1] = 0;
-
-            getNames(i, level, reference);
-
-            ++i[level];
-        }
+void printAllNames(vector<int>& i, int level, vector< vector<char> >& reference, int digits, string number, vector<string> output) {
+    if (level == digits) {
+        output.push_back(makeString(reference, digits, number, i));
+        return;
     }
 
-    return names;
+    for (int j = 0; j < 3; ++j) {
+        i[level] = j;
+        printAllNames(i, level + 1, reference, digits, number, output);
+    }
 }
 
 int main() {
@@ -75,31 +67,11 @@ int main() {
 
     // fill vector will all possible names;
 
-    while (i[0] < 3) {
-        i[1] = 0;
-        
-        while (i[1] < 3) {
-            i[2] = 0;
-
-            while (i[2] < 3) {
-                i[3] = 0;
-
-                while (i[3] < 3) {
-                    cout << makeString(numbers, digits, stringNum, i) << ' ';
-
-                    ++i[3];
-                }   
-
-                ++i[2];
-            }
-
-            ++i[1];
-        }
-        
-        ++i[0];
-    }
+    printAllNames(i, 0, numbers, digits, stringNum, names);
 
     // cout << names[0] << endl;
+
+    cout << names.size() << endl;
 
     // check each name with file;
 
