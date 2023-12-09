@@ -18,7 +18,7 @@ int getDigit(string n, int digit) {
     return n[digit] - '2';
 }
 
-string makeString(vector< vector<char> > reference, int length, string number, vector<int> iterationsArray) {  
+string makeString(vector< vector<char> >& reference, int& length, string& number, vector<int>& iterationsArray) {  
     string word;
     int iterate = 0;
 
@@ -29,32 +29,6 @@ string makeString(vector< vector<char> > reference, int length, string number, v
     }
 
     return word;
-}
-
-void printAllNames(const string& number, const vector<vector<char>>& reference, vector<string>& output) {
-    int digits = number.size();
-    vector<int> indices(digits, 0);
-
-    while (true) {
-        string word;
-        for (int i = 0; i < digits; ++i) {
-            word.push_back(reference[getDigit(number, i)][indices[i]]);
-        }
-
-        output.push_back(word);
-
-        // Increment indices
-        int i = digits - 1;
-        while (i >= 0 && ++indices[i] == 3) {
-            indices[i] = 0;
-            --i;
-        }
-
-        // Check if all indices have been exhausted
-        if (i < 0) {
-            break;
-        }
-    }
 }
 
 void getPossibleNames(string& number, vector< vector<char> >& reference, ifstream& dict, vector< vector<string> >& possibleNames){
@@ -72,6 +46,44 @@ void getPossibleNames(string& number, vector< vector<char> >& reference, ifstrea
     }
 
     dict.close();
+}
+
+bool checkName(string& name, vector< vector<string> >& possibleNames) {
+    if ( find(possibleNames[0].begin(), possibleNames[0].end(), name) != possibleNames[0].end() )
+        return true;
+    if ( find(possibleNames[1].begin(), possibleNames[1].end(), name) != possibleNames[1].end() )
+        return true;
+    if ( find(possibleNames[2].begin(), possibleNames[2].end(), name) != possibleNames[2].end() )
+        return true;
+    return false;
+}
+
+void printAllNames(const string& number, const vector<vector<char>>& reference, vector<string>& output, vector< vector<string> >& possibleNames) {
+    int digits = number.size();
+    vector<int> indices(digits, 0);
+
+    while (true) {
+        string word;
+        for (int i = 0; i < digits; ++i) {
+            word.push_back(reference[getDigit(number, i)][indices[i]]);
+        }
+
+        if (checkName(word, possibleNames)) {
+            output.push_back(word);
+        }
+
+        // Increment indices
+        int i = digits - 1;
+        while (i >= 0 && ++indices[i] == 3) {
+            indices[i] = 0;
+            --i;
+        }
+
+        // Check if all indices have been exhausted
+        if (i < 0) {
+            break;
+        }
+    }
 }
 
 int main() {
@@ -97,7 +109,7 @@ int main() {
             {'T', 'U', 'V'},
             {'W', 'X', 'Y'}
         };
-    int digits = stringNum.length();
+    int digits = stringNum.size();
     int totalIterations = pow(3, digits);
     vector<int> i;
 
@@ -107,55 +119,35 @@ int main() {
 
     // fill vector will all possible names;
 
-    printAllNames(stringNum, numbers, names);
-
-    // check each name with file;
-
-    vector<string> goodNames;
-
-    ifstream dict;
-
     vector< vector<string> > possibleNames{
         vector<string>(),
         vector<string>(),
         vector<string>()
     };
+    ifstream dict;
     getPossibleNames(stringNum, numbers, dict, possibleNames);
 
-    for (const string& name : names) {
-        if ( name[0] == numbers[getDigit(stringNum, 0)][0] ) {
-            if ( find(possibleNames[0].begin(), possibleNames[0].end(), name) != possibleNames[0].end() )
-                goodNames.push_back(name);
-        }
-        if ( name[0] == numbers[getDigit(stringNum, 0)][1] ) {
-            if ( find(possibleNames[1].begin(), possibleNames[1].end(), name) != possibleNames[1].end() )
-                goodNames.push_back(name);
-        }
-        if ( name[0] == numbers[getDigit(stringNum, 0)][2] ) {
-            if ( find(possibleNames[2].begin(), possibleNames[2].end(), name) != possibleNames[2].end() )
-                goodNames.push_back(name);
-        }
-    } 
+    printAllNames(stringNum, numbers, names, possibleNames);
+
+    // check each name with file;
+
+    vector<string> goodNames;
 
     numbers.clear();
     numbers.shrink_to_fit();
-    names.clear();
-    names.shrink_to_fit();
     possibleNames.clear();
     possibleNames.shrink_to_fit();
-
-    cout << goodNames.size() << endl;
 
     // return good ones;
 
     ofstream outputFile;
     outputFile.open("namenum.out");
 
-    if (goodNames.size() == 0) {
+    if (names.size() == 0) {
         outputFile << "NONE" << endl;
     } else {
-        for (int i = 0; i < goodNames.size(); ++i) {
-            outputFile << goodNames[i] << endl;
+        for (int i = 0; i < names.size(); ++i) {
+            outputFile << names[i] << endl;
         }
     }
 
