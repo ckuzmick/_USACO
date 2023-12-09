@@ -10,6 +10,8 @@
         "ostream": "cpp",
         "array": "cpp",
         "tuple": "cpp",
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "typeinfo": "cpp",
+        "algorithm": "cpp"
     }
 }
