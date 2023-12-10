@@ -1,13 +1,13 @@
 /*
 ID: 27ckuzm1
-TASK: palsquare
+TASK: dualpal
 LANG: C++
 */
 
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cmath>
+#include <sstream>
 #include <algorithm>
 
 using namespace std;
@@ -38,28 +38,45 @@ string convert(int num, int base) {
 }
 
 int main() {
-    // get base
-
     ifstream input;
-    input.open("palsquare.in");
-    string baseString;
-    input >> baseString;
+    input.open("dualpal.in");
+    string data;
+    getline(input, data);
     input.close();
-    int base = stoi(baseString);
+
+    int n;
+    int s;
+
+    istringstream iss(data);
+
+    iss >> n >> s;
+
+    int totalCount = 0;
 
     ofstream output;
-    output.open("palsquare.out");
+    output.open("dualpal.out");
 
-    for (int i = 1; i <= 300; i++) {
-        int square = i * i;
-        string stringSquare = convert(square, base);
+    while (totalCount < n) {
+        ++s;
+        int palCount = 0;
 
-        if (isPal(stringSquare)) {
-            output << convert(i, base) << ' ' << stringSquare << endl;
+        int i = 2;
+
+        while (i <= 10) {
+            if (isPal(convert(s, i))) {
+                palCount++;
+            }
+            if (palCount == 2) {
+                totalCount++;
+                output << s << endl;
+                break;
+            }
+
+            ++i;
         }
     }
 
     output.close();
-    
+
     return 0;
 }
