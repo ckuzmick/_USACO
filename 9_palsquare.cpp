@@ -32,15 +32,13 @@ bool isPal(string numString) {
 string convert(int num, int base) {
     string numbers = "0123456789ABCDEFGHIJ";
     string converted;
-    int quotient = floor(num / base);
-    push_back_string(converted, to_string(num % base));
+    int quotient = num;
 
     while (quotient != 0) {
-        quotient = floor(quotient / base);
-        push_back_string(converted, to_string(quotient % base));
+        converted.push_back(numbers[quotient % base]);
+        quotient /= base;
     }
 
-    push_back_string(converted, to_string(quotient % base));
     reverse(converted.begin(), converted.end());
 
     return converted;
@@ -56,21 +54,19 @@ int main() {
     input.close();
     int base = stoi(baseString);
 
-    // ofstream output;
-    // output.open("palsquare.out");
+    ofstream output;
+    output.open("palsquare.out");
 
-    // for (int i = 1; i <= 300; i++) {
-    //     int square = i * i;
-    //     string stringSquare = convert(square, base);
+    for (int i = 1; i <= 300; i++) {
+        int square = i * i;
+        string stringSquare = convert(square, base);
 
-    //     if (isPal(stringSquare)) {
-    //         output << convert(i, base) << ' ' << stringSquare << endl;
-    //     }
-    // }
+        if (isPal(stringSquare)) {
+            output << convert(i, base) << ' ' << stringSquare << endl;
+        }
+    }
 
-    // output.close();
-
-    cout << convert(10, 10) << endl;
+    output.close();
     
     return 0;
 }
