@@ -13,6 +13,13 @@ LANG: C++
 using namespace std;
 
 int main() {
+    ifstream input;
+    input.open("milk.in");
+    string data;
+    getline(input, data);
+    input.close();
+
+    
 
     return 0;
 }
