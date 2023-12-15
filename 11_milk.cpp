@@ -12,14 +12,18 @@ LANG: C++
 
 using namespace std;
 
+struct Farm {
+    public:
+        int price;
+        int amount;
+}
+
 int main() {
     ifstream input;
     input.open("milk.in");
     string data;
     getline(input, data);
     input.close();
-
-    
 
     return 0;
 }
