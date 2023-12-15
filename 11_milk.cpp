@@ -79,7 +79,11 @@ int main() {
 
     while (milkGathered < n) {
         milkGathered += farms.back().amount;
-        total += farms.back().total;
+        total += farms.back().totalCost();
+
+        if () {
+
+        }
 
         farms.pop_back();
     }
