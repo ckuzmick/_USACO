@@ -10,6 +10,7 @@ LANG: C++
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -33,10 +34,16 @@ Farm splitTimes(string data) {
     return newFarm;
 }
 
+bool compareFarm(Farm f1, Farm f2) { 
+    return (i1.start < i2.start); 
+} 
+
 int main() {
+    // get data from  document
+
     ifstream input;
     input.open("milk.in");
-    string data;
+    istringstream data;
     getline(input, data);
     istringstream dataStream(data);
 
@@ -60,6 +67,10 @@ int main() {
     }
 
     input.close();
+
+    // loop through, order array based of cheapest
+
+
 
     return 0;
 }
