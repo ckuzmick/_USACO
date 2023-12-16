@@ -1,6 +1,6 @@
 /*
 ID: 27ckuzm1
-TASK: dualpal
+TASK: milk
 LANG: C++
 */
 
@@ -29,7 +29,7 @@ Farm splitTimes(string data) {
 
     Farm newFarm;
 
-    iss >> newFarm.amount >> newFarm.price;
+    iss >> newFarm.price >> newFarm.amount;
 
     return newFarm;
 }
@@ -43,27 +43,19 @@ int main() {
 
     ifstream input;
     input.open("milk.in");
-    istringstream data;
+    string data;
     getline(input, data);
-    istringstream dataStream(data);
-
-    int n;
-    int m;
-
-    dataStream >> n >> m;
+    stringstream ss(data);
+    int n, m;
+    ss >> n >> m;
+    cout << n << "\n" << m << endl;
 
     vector<Farm> farms;
 
     for ( int i = 0; i < m; ++i ) {
-
         string rawString;
-
         getline( input, rawString );
-
         farms.push_back(splitTimes(rawString)); 
-
-        cout << farms.back().amount << endl;
-
     }
 
     input.close();
@@ -78,19 +70,24 @@ int main() {
     int milkGathered = 0;
 
     while (milkGathered < n) {
+        if (farms.back().amount + milkGathered > n) {
+            farms.back().amount -= n - milkGathered;
+        }
+
         milkGathered += farms.back().amount;
         total += farms.back().totalCost();
 
-        if () {
-
-        }
+        cout << farms.back().amount << " " << farms.back().price << endl;
 
         farms.pop_back();
     }
 
     // output total
 
-    cout << total << endl;
+    ofstream output;
+    output.open("milk.out");
+    output << total << endl;
+    output.close();
 
     return 0;
 }
