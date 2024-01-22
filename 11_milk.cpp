@@ -34,10 +34,6 @@ Farm splitTimes(string data) {
     return newFarm;
 }
 
-bool compareFarm(Farm f1, Farm f2) { 
-    return (f1.price > f2.price); 
-}
-
 int main() {
     // get data from  document
 
@@ -60,26 +56,24 @@ int main() {
 
     input.close();
 
-    // loop through, order array based of cheapest
-
-    sort(farms.begin(), farms.end(), compareFarm); 
-
     // get total amount
 
     int total = 0;
     int milkGathered = 0;
 
     while (milkGathered < n) {
-        if (farms.back().amount + milkGathered > n) {
-            farms.back().amount -= n - milkGathered;
+        int cheapestIndex = farms[0].price;
+
+        for (auto &item : farms) {
+            if cheapestIndex >= item.price {
+                cheapestIndex = item.price;
+            }
         }
 
-        milkGathered += farms.back().amount;
-        total += farms.back().totalCost();
+        milkGathered += farms.amount;
+        total += farms.totalCost();
 
-        cout << farms.back().amount << " " << farms.back().price << endl;
-
-        farms.pop_back();
+        farms.erase(farms.begin() + (cheapestIndex-1))
     }
 
     // output total
