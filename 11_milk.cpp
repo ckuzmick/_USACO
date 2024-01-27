@@ -31,6 +31,8 @@ Farm splitTimes(string data) {
 
     iss >> newFarm.price >> newFarm.amount;
 
+    iss.clear();
+
     return newFarm;
 }
 
@@ -52,6 +54,8 @@ int main() {
         string rawString;
         getline( input, rawString );
         farms.push_back(splitTimes(rawString)); 
+        rawString.clear();
+        rawString.shrink_to_fit();
     }
 
     input.close();
@@ -62,19 +66,29 @@ int main() {
     int milkGathered = 0;
 
     while (milkGathered < n) {
-        int cheapestIndex = farms[0].price;
+        int cheapestIndex = 0;
 
-        for (auto &item : farms) {
-            if cheapestIndex >= item.price {
-                cheapestIndex = item.price;
+        for (int i=0; i < farms.size(); ++i) {
+            if (farms[cheapestIndex].price >= farms[i].price) {
+                cout << farms[cheapestIndex].price << ' ' << farms[i].price << endl;
+                cheapestIndex = i;
             }
         }
 
-        milkGathered += farms.amount;
-        total += farms.totalCost();
-
-        farms.erase(farms.begin() + (cheapestIndex-1))
+        if (milkGathered + farms[cheapestIndex].amount > n) {
+            farms[cheapestIndex].amount = n - milkGathered;
+            milkGathered = n;
+            total += farms[cheapestIndex].price * farms[cheapestIndex].amount;
+        } else {
+            milkGathered += farms[cheapestIndex].amount;
+            total += farms[cheapestIndex].price * farms[cheapestIndex].amount;
+        }
+        
+        farms.erase(farms.begin() + cheapestIndex);
     }
+
+    farms.clear();
+    farms.shrink_to_fit();
 
     // output total
 

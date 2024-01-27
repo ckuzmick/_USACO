@@ -12,6 +12,8 @@
         "tuple": "cpp",
         "__locale": "cpp",
         "typeinfo": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "__split_buffer": "cpp",
+        "deque": "cpp"
     }
 }
